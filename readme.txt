@@ -22,7 +22,7 @@ This web service provides a RESTful API with the following endpoints:
 1. Clone the repository:
 
 ```
-git clone <repository-url>
+git clone <https://github.com/PreetRai/video-game-store>
 ```
 
 2. Navigate to the project directory:
@@ -79,10 +79,4 @@ http://localhost:3000
 
 Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.
 
-## License
-
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
 ```
-
-Feel free to modify the content and structure of the README file according to your specific project requirements.
