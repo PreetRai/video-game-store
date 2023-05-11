@@ -3,6 +3,9 @@
 
 Welcome to the Video Game Store, a web service for managing and retrieving information about video games, users, and orders.
 
+## Preview video
+https://somup.com/c0hX6NaVjU
+
 ## Description
 
 This web service provides a RESTful API with the following endpoints:
