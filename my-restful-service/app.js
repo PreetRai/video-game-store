@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const data = require('./data.json');
 const path = require('path');
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('/users', (req, res) => {
   res.json({ users: data.users });
 });
