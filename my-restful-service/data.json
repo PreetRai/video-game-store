@@ -1,0 +1,80 @@
+{
+    "games": [
+      {
+        "id": 1,
+        "title": "The Legend of Zelda: Breath of the Wild",
+        "genre": "Action-Adventure",
+        "price": 59.99,
+        "description": "Embark on an epic adventure in the kingdom of Hyrule."
+      },
+      {
+        "id": 2,
+        "title": "God of War",
+        "genre": "Action",
+        "price": 49.99,
+        "description": "Join Kratos in his quest for vengeance against the gods of Olympus."
+      },
+      {
+        "id": 3,
+        "title": "Grand Theft Auto V",
+        "genre": "Action-Adventure",
+        "price": 29.99,
+        "description": "Experience the criminal underworld of Los Santos in this open-world game."
+      },
+      {
+        "id": 4,
+        "title": "FIFA 22",
+        "genre": "Sports",
+        "price": 39.99,
+        "description": "Take to the field and play the most authentic soccer game to date."
+      }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane@example.com"
+      },
+      {
+        "id": 3,
+        "name": "Mike Johnson",
+        "email": "mike@example.com"
+      }
+    ],
+    "orders": [
+      {
+        "id": 1,
+        "userId": 1,
+        "gameId": 3,
+        "quantity": 1,
+        "timestamp": "2023-05-10T10:30:00Z"
+      },
+      {
+        "id": 2,
+        "userId": 2,
+        "gameId": 1,
+        "quantity": 2,
+        "timestamp": "2023-05-10T12:45:00Z"
+      },
+      {
+        "id": 3,
+        "userId": 3,
+        "gameId": 2,
+        "quantity": 1,
+        "timestamp": "2023-05-11T08:15:00Z"
+      },
+      {
+        "id": 4,
+        "userId": 1,
+        "gameId": 4,
+        "quantity": 3,
+        "timestamp": "2023-05-11T10:00:00Z"
+      }
+    ]
+  }
+  

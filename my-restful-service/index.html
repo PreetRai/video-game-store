@@ -3,73 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <title>Video Game Store</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
+  <style>    body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
 
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 20px;
-    }
+  h1, h2, h3 {
+    color: #333;
+  }
 
-    .container > div {
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+  button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
 
-    .game-list {
-      overflow-y: auto;
-    }
+  input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
 
-    .game-list button {
-      display: block;
-      width: 100%;
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
+  #allGames, #gameDetails, #gameById, #userOrders {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
 
-    .game-details {
-      overflow-y: auto;
-    }
-  </style>
+  #allGames div {
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+
+  #gameDetails h3 {
+    margin-top: 0;
+  }
+
+  #userOrders hr {
+    margin-top: 10px;
+    border: none;
+    border-top: 1px solid #ccc;
+  }</style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Welcome to the Video Game Store</h1>
+  <h1>Welcome to the Video Game Store</h1>
 
-    <div class="container">
-      <div class="game-list">
-        <h2>All Games</h2>
-        <button onclick="getAllGames()">Get All Games</button>
-        <div id="allGames"></div>
-      </div>
-  
-      <div class="game-details" id="gameDetails"></div>
-    </div>
-  <script>
-    // Function to fetch all games and display
-    function getAllGames() {
+  <h2>All Games</h2>
+  <button onclick="getAllGames()">Get All Games</button>
+  <div id="allGames"></div>
+
+  <h2>Game Details</h2>
+  <div id="gameDetails"></div>
+
+  <h2>All Users</h2>
+  <button onclick="getAllUsers()">Get All Users</button>
+  <div id="allUsers"></div>
+
+
+  <h2>Orders by User ID</h2>
+  <input type="number" id="userIdInput" placeholder="Enter User ID">
+  <button onclick="getUserOrders()">Get Orders by User ID</button>
+  <div id="userOrders"></div>
+
+  <script> 
+  function getAllUsers() {
+    fetch('/users')
+      .then(response => response.json())
+      .then(data => {
+        const allUsers = document.getElementById('allUsers');
+        allUsers.innerHTML = '';
+
+        data.users.forEach(user => {
+          const userElement = document.createElement('div');
+          userElement.textContent = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}`;
+          allUsers.appendChild(userElement);
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+        function getAllGames() {
       fetch('/games')
         .then(response => response.json())
-        .then(games => {
+        .then(data => {
           const allGames = document.getElementById('allGames');
           allGames.innerHTML = '';
 
-          games.games.forEach(game => {
+          data.games.forEach(game => {
             const gameElement = document.createElement('div');
-            gameElement.innerHTML = `${game.id}. ${game.title}`;
+            gameElement.textContent = `${game.id}. ${game.title}`;
 
-            // Add click event listener to each game element
+            // Add click event listener to show game details
             gameElement.addEventListener('click', () => {
               showGameDetails(game);
             });
@@ -82,7 +117,30 @@
         });
     }
 
-    // Function to show game details
+     function getAllGames() {
+      fetch('/games')
+        .then(response => response.json())
+        .then(data => {
+          const allGames = document.getElementById('allGames');
+          allGames.innerHTML = '';
+
+          data.games.forEach(game => {
+            const gameElement = document.createElement('div');
+            gameElement.textContent = `${game.id}. ${game.title}`;
+
+            // Add click event listener to show game details
+            gameElement.addEventListener('click', () => {
+              showGameDetails(game);
+            });
+
+            allGames.appendChild(gameElement);
+          });
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
     function showGameDetails(game) {
       const gameDetails = document.getElementById('gameDetails');
       gameDetails.innerHTML = `
@@ -91,6 +149,56 @@
         <p><strong>Price:</strong> $${game.price}</p>
         <p><strong>Description:</strong> ${game.description}</p>
       `;
+    }
+
+    function getGameById() {
+      const gameIdInput = document.getElementById('gameIdInput').value;
+      const gameById = document.getElementById('gameById');
+      gameById.innerHTML = '';
+
+      fetch(`/games/${gameIdInput}`)
+        .then(response => response.json())
+        .then(data => {
+          const game = data.game;
+          const gameElement = document.createElement('div');
+          gameElement.innerHTML = `
+            <h3>${game.title}</h3>
+            <p><strong>Genre:</strong> ${game.genre}</p>
+            <p><strong>Price:</strong> $${game.price}</p>
+            <p><strong>Description:</strong> ${game.description}</p>
+          `;
+          gameById.appendChild(gameElement);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
+    function getUserOrders() {
+      const userIdInput = document.getElementById('userIdInput').value;
+      const userOrders = document.getElementById('userOrders');
+      userOrders.innerHTML = '';
+
+      fetch(`/users/${userIdInput}/orders`)
+        .then(response => response.json())
+        .then(data => {
+          const orders = data.orders;
+          orders.forEach(order => {
+            const orderElement = document.createElement('div');
+            orderElement.innerHTML = `
+              <h3>Order ID: ${order.id}</h3>
+              <p><strong>User ID:</strong> ${order.userId}</p>
+              <p><strong>Game ID:</strong> ${order.gameId}</p>
+              <p><strong>Quantity:</strong> ${order.quantity}</p>
+              <p><strong>Timestamp:</strong> ${order.timestamp}</p>
+              <hr>
+            `;
+            userOrders.appendChild(orderElement);
+          });
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   </script>
 </body>
