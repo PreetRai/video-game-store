@@ -6,6 +6,8 @@ Welcome to the Video Game Store, a web service for managing and retrieving infor
 ## Preview video
 https://somup.com/c0hX6NaVjU
 
+## Power Point Presentation has been provide in this repo
+Video Game Store.ppt
 ## Description
 
 This web service provides a RESTful API with the following endpoints:
